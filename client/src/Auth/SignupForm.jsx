@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const SignupForm = () => {
   const [formData, setFormData] = useState({
@@ -18,9 +19,15 @@ const SignupForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData); // You can replace this with your own logic for form submission
+
+    try {
+      const response = await axios.post("http://localhost:3000/signup", formData);
+      console.log(response.data); // Log the response from the backend
+    } catch (error) {
+      console.error("Error submitting form:", error);
+    }
   };
 
   return (
@@ -71,7 +78,9 @@ const SignupForm = () => {
         />
       </label>
       <button type="submit">Submit</button>
-      <p>Already have an account? <Link to={"/login"}>Login</Link></p>
+      <p>
+        Already have an account? <Link to={"/login"}>Login</Link>
+      </p>
     </form>
   );
 };
