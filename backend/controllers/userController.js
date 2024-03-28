@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const User = require("../modals/user");
+require("dotenv").config();
 
 const signupController = {
   async createUser(req, res) {
@@ -37,7 +39,6 @@ const signupController = {
         email,
         name,
         password: hashedPassword,
-        confirmPassword,
       });
 
       // Exclude confirmPassword from the response
@@ -51,4 +52,42 @@ const signupController = {
   },
 };
 
-module.exports = signupController;
+const loginController = {
+  async loginUser(req, res) {
+    try {
+      const { identifier, password } = req.body;
+
+      // Find the user by either userid or email
+      const user = await User.findOne({
+        $or: [{ userid: identifier }, { email: identifier }],
+      });
+
+      // Check if user exists
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      // Compare passwords
+      const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordMatch) {
+        return res.status(401).json({ error: "Invalid password" });
+      }
+
+      // Generate a JWT token
+      const token = jwt.sign(
+        { userId: user._id, email: user.email },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" } // Token expires in 1 hour
+      );
+
+      // Send the token in the response
+      res.status(200).json({ token });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Server error" });
+    }
+  },
+};
+
+module.exports = { signupController, loginController };

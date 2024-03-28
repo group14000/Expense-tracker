@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios"; // Import Axios
 
 const LoginForm = () => {
   const [loginData, setLoginData] = useState({
@@ -15,9 +16,19 @@ const LoginForm = () => {
     });
   };
 
-  const handleLoginSubmit = (e) => {
+  const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    console.log(loginData); // You can replace this with your own login logic
+
+    try {
+      // Make a POST request to your backend endpoint
+      const response = await axios.post(
+        "http://localhost:3000/login",
+        loginData
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error logging in:", error);
+    }
   };
 
   return (
