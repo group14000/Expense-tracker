@@ -1,21 +1,32 @@
 import { Link } from "react-router-dom";
+import { IoIosNotifications } from "react-icons/io";
 
 const Header = () => {
   return (
-    <div className="flex justify-between items-center p-4 bg-purple-700 text-white">
-      <div className="flex items-center">
-        <Link to={"*"} className="text-2xl font-bold">
-          BudgetBoss
-        </Link>
-      </div>
-      <div className="flex">
-        <Link to="/login" className="mr-4">
-          <div className="bg-yellow-400 rounded-full px-4 py-2 hover:bg-yellow-500 transition duration-300 ease-in-out">
-            <span className="font-semibold">Login / SignUp</span>
+    <header className="bg-white shadow-lg">
+      <nav className="container mx-auto flex justify-between items-center py-4 px-4 md:px-8">
+        <div className="flex justify-end items-center w-full">
+          <div className="flex items-center mr-4">
+            <div className="flex items-center mr-4">
+              <input
+                type="text"
+                placeholder="Search..."
+                className="border border-gray-300 px-2 py-1 ml-2 focus:outline-none"
+              />
+            </div>
+
+            <IoIosNotifications className="text-gray-600" />
           </div>
-        </Link>
-      </div>
-    </div>
+
+          <Link
+            to="/login"
+            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg text-sm"
+          >
+            Login / SignUp
+          </Link>
+        </div>
+      </nav>
+    </header>
   );
 };
 
