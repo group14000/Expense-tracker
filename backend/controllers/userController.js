@@ -44,7 +44,8 @@ const signupController = {
       // Exclude confirmPassword from the response
       const { confirmPassword: _, ...userData } = user.toJSON();
 
-      res.status(201).json(userData);
+      // Send success message with status 201
+      res.status(201).json({ message: "User created successfully", userData });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Server error" });
@@ -81,8 +82,8 @@ const loginController = {
         { expiresIn: "1h" } // Token expires in 1 hour
       );
 
-      // Send the token in the response
-      res.status(200).json({ token });
+      // Send success message with status 200
+      res.status(200).json({ message: "Login successful", token });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: "Server error" });

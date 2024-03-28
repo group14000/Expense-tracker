@@ -29,7 +29,10 @@ const Sidebar = () => {
               <FaChartBar className="mr-2" />
               <span className="text-xs">Charts</span>
             </Link>
-            <Link to="#" className="flex items-center p-4 text-center">
+            <Link
+              to="/add-expense"
+              className="flex items-center p-4 text-center"
+            >
               <FaPlus className="mr-2" />
               <span className="text-xs">Add</span>
             </Link>

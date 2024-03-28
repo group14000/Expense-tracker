@@ -15,7 +15,6 @@ const LoginForm = () => {
       [name]: value,
     });
   };
-
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
 
@@ -25,6 +24,7 @@ const LoginForm = () => {
         loginData
       );
       console.log(response.data);
+      window.alert("Login successful!"); 
     } catch (error) {
       console.error("Error logging in:", error);
     }
