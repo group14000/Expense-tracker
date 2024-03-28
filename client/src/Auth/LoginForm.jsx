@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 
 const LoginForm = () => {
   const [loginData, setLoginData] = useState({
@@ -20,7 +20,6 @@ const LoginForm = () => {
     e.preventDefault();
 
     try {
-      // Make a POST request to your backend endpoint
       const response = await axios.post(
         "http://localhost:3000/login",
         loginData
@@ -32,30 +31,61 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleLoginSubmit}>
-      <label>
-        User ID or Email:
-        <input
-          type="text"
-          name="userIdOrEmail"
-          value={loginData.userIdOrEmail}
-          onChange={handleLoginChange}
-        />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          name="password"
-          value={loginData.password}
-          onChange={handleLoginChange}
-        />
-      </label>
-      <button type="submit">Login</button>
-      <p>
-        New User? <Link to={"/sign-up"}>Sign Up</Link>
-      </p>
-    </form>
+    <div className="flex justify-center items-center h-screen">
+      <form
+        onSubmit={handleLoginSubmit}
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full max-w-md"
+      >
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="userIdOrEmail"
+          >
+            User ID or Email:
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="userIdOrEmail"
+            type="text"
+            name="userIdOrEmail"
+            value={loginData.userIdOrEmail}
+            onChange={handleLoginChange}
+            placeholder="Enter your User ID or Email"
+          />
+        </div>
+        <div className="mb-6">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="password"
+          >
+            Password:
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="password"
+            type="password"
+            name="password"
+            value={loginData.password}
+            onChange={handleLoginChange}
+            placeholder="Enter your password"
+          />
+        </div>
+        <div className="flex items-center justify-between">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+          >
+            Login
+          </button>
+          <p className="text-sm">
+            New User?{" "}
+            <Link to="/sign-up" className="text-blue-500 hover:text-blue-800">
+              Sign Up
+            </Link>
+          </p>
+        </div>
+      </form>
+    </div>
   );
 };
 
