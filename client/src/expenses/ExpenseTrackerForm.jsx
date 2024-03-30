@@ -1,9 +1,9 @@
 import { useState } from "react";
-import axios from "axios"; // Import Axios
+import axios from "axios";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { IoMdCash } from "react-icons/io";
-import { AiOutlineTag } from "react-icons/ai"; // Importing the tag icon
+import { AiOutlineTag } from "react-icons/ai";
 
 const ExpenseTrackerForm = () => {
   const [expense, setExpense] = useState({
@@ -18,41 +18,34 @@ const ExpenseTrackerForm = () => {
   const [showCalendar, setShowCalendar] = useState(false);
 
   const handleDateChange = (date) => {
-    setExpense({
-      ...expense,
-      date: date,
-    });
+    setExpense({ ...expense, date });
     setShowCalendar(false);
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setExpense({
-      ...expense,
-      [name]: value,
-    });
+    setExpense({ ...expense, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Make POST request to backend
       const response = await axios.post(
         "http://localhost:3000/expenses",
         expense
       );
-      console.log(response.data); // Log response from the backend
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <form className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md md:ml-auto">
+    <form className="max-w-lg mx-auto p-6 bg-white shadow-md rounded-md md:ml-auto mt-12">
       <h2 className="text-xl font-semibold mb-4 text-center">
         Expense Tracker
       </h2>
-      <div className="mb-4">
+      <div className="mb-5">
         <label htmlFor="date" className="block text-gray-700 mb-1">
           Date
         </label>
@@ -77,10 +70,9 @@ const ExpenseTrackerForm = () => {
           )}
         </div>
       </div>
-      <div className="mb-4">
-        {/* Using conditional rendering to display icon on small screens */}
+      <div className="mb-5">
         <label htmlFor="category" className="block text-gray-700 mb-1">
-          {window.innerWidth <= 768 ? <AiOutlineTag /> : "Category"}
+          <AiOutlineTag /> Category
         </label>
         <input
           type="text"
@@ -91,7 +83,7 @@ const ExpenseTrackerForm = () => {
           className="w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-blue-400"
         />
       </div>
-      <div className="mb-4">
+      <div className="mb-5">
         <label htmlFor="description" className="block text-gray-700 mb-1">
           Description
         </label>
@@ -104,7 +96,7 @@ const ExpenseTrackerForm = () => {
           className="w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-blue-400"
         />
       </div>
-      <div className="mb-4">
+      <div className="mb-5">
         <label htmlFor="amount" className="block text-gray-700 mb-1">
           Amount
         </label>
@@ -122,7 +114,7 @@ const ExpenseTrackerForm = () => {
           </span>
         </div>
       </div>
-      <div className="mb-4">
+      <div className="mb-5">
         <label htmlFor="currency" className="block text-gray-700 mb-1">
           Currency
         </label>
@@ -135,7 +127,7 @@ const ExpenseTrackerForm = () => {
           className="w-full border-gray-300 rounded-md py-2 px-4 focus:outline-none focus:border-blue-400"
         />
       </div>
-      <div className="mb-4">
+      <div className="mb-5">
         <label htmlFor="paymentMethod" className="block text-gray-700 mb-1">
           Payment Method
         </label>

@@ -25,47 +25,59 @@ const ExpenseTracker = () => {
     }
   };
 
+  const deleteExpense = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/expenses/${id}`);
+      fetchExpenses(); // Fetch updated expense list after deletion
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchExpenses();
   }, []);
 
   return (
-    <div className="container mx-auto">
-      <h2 className="text-xl font-semibold mb-4 text-center">
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-2xl font-semibold mb-8 text-center">
         Expense Tracker
       </h2>
       {loading ? (
-        <p>Loading...</p>
+        <p className="text-center">Loading...</p>
       ) : error ? (
-        <p>Error: {error}</p>
+        <p className="text-center text-red-500">Error: {error}</p>
       ) : (
         <div>
           <div className="mb-8">
-            <h3 className="text-lg font-semibold mb-2">Expense List</h3>
+            <h3 className="text-lg font-semibold mb-4">Expense List</h3>
             <ul>
               {expenses.map((expense) => (
-                <li key={expense.id}>
-                  <div>Date: {expense.date}</div>
-                  <div>Category: {expense.category}</div>
-                  <div>Description: {expense.description}</div>
-                  <div>Amount: {expense.amount}</div>
-                  <div>Currency: {expense.currency}</div>
+                <li key={expense.id} className="mb-4 border rounded-md p-4">
+                  <div className="mb-2">Date: {expense.date}</div>
+                  <div className="mb-2">Category: {expense.category}</div>
+                  <div className="mb-2">Description: {expense.description}</div>
+                  <div className="mb-2">Amount: {expense.amount}</div>
+                  <div className="mb-2">Currency: {expense.currency}</div>
                   <div>Payment Method: {expense.paymentMethod}</div>
+                  <button
+                    onClick={() => deleteExpense(expense.id)}
+                    className="mt-2 bg-red-500 text-white px-4 py-1 rounded-md"
+                  >
+                    Delete
+                  </button>
                 </li>
               ))}
             </ul>
           </div>
           <div className="mb-8">
-            <h3 className="text-lg font-semibold mb-2">Expense Chart</h3>
+            <h3 className="text-lg font-semibold mb-4">Expense Chart</h3>
             <ResponsiveContainer width="100%" height={300}>
-              <BarChart
-                data={expenses}
-                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-              >
+              <BarChart data={expenses}>
                 <XAxis dataKey="date" />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="amount" fill="#8884d8" />
+                <Bar dataKey="amount" fill="#82ca9d" radius={[10, 10, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
