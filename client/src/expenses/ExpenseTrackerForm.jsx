@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios"; // Import Axios
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { IoMdCash } from "react-icons/io";
@@ -32,9 +33,18 @@ const ExpenseTrackerForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(expense);
+    try {
+      // Make POST request to backend
+      const response = await axios.post(
+        "http://localhost:3000/expenses",
+        expense
+      );
+      console.log(response.data); // Log response from the backend
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

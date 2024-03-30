@@ -5,6 +5,7 @@ const cors = require("cors");
 const sequelize = require("./util/database");
 const signupRoutes = require("./routers/userRouter");
 const loginRoutes = require("./routers/userRouter");
+const expenseRoutes = require("./routers/expenseRouter");
 
 // Middleware
 app.use(cors()); // Use cors middleware to enable CORS
@@ -12,8 +13,9 @@ app.use(cors()); // Use cors middleware to enable CORS
 app.use(express.json());
 
 // Routes
-app.use("/signup", signupRoutes);
-app.use("/login", loginRoutes);
+app.use("/", signupRoutes);
+app.use("/", loginRoutes);
+app.use("/", expenseRoutes);
 
 app.use(bodyParser.json({ extended: false }));
 
