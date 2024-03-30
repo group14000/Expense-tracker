@@ -20,3 +20,13 @@ exports.createExpense = async (req, res) => {
     res.status(500).json({ success: false, error: "Server Error" });
   }
 };
+
+exports.showExpense = async (req, res) => {
+  try {
+    const expenses = await Expense.findAll();
+    res.json(expenses);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Server Error" });
+  }
+};
