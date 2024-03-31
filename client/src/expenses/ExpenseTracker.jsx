@@ -62,7 +62,7 @@ const ExpenseTracker = () => {
                   <div>Payment Method: {expense.paymentMethod}</div>
                   <button
                     onClick={() => deleteExpense(expense.id)}
-                    className="mt-2 bg-red-500 text-white px-4 py-1 rounded-md"
+                    className="mt-2 bg-red-500 text-white px-4 py-1 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
                   >
                     Delete
                   </button>
