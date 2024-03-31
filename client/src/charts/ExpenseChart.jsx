@@ -1,83 +1,69 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Bar } from "react-chartjs-2";
+import { PieChart, Pie, Cell } from "recharts";
 
 const ExpenseChart = () => {
   const [expenses, setExpenses] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedOption, setSelectedOption] = useState("monthly");
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchExpenses = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/expense-list");
-        setExpenses(response.data);
-        setLoading(false);
-      } catch (error) {
-        setError(error.message);
-        setLoading(false);
-      }
-    };
+    fetchExpenses(selectedOption);
+  }, [selectedOption]);
 
-    fetchExpenses();
-  }, []);
-
-  const getTotalExpensesByCategory = () => {
-    const categories = {};
-    expenses.forEach((expense) => {
-      if (categories[expense.category]) {
-        categories[expense.category] += parseFloat(expense.amount);
-      } else {
-        categories[expense.category] = parseFloat(expense.amount);
-      }
-    });
-    return categories;
+  const fetchExpenses = async (option) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/expense-list?option=${option}`
+      );
+      setExpenses(response.data);
+      setError(null);
+    } catch (error) {
+      console.error("Error fetching expenses:", error);
+      setError("Error fetching expenses. Please try again later.");
+    }
   };
 
-  const data = {
-    labels: Object.keys(getTotalExpensesByCategory()),
-    datasets: [
-      {
-        label: "Total Expenses",
-        data: Object.values(getTotalExpensesByCategory()),
-        backgroundColor: [
-          "rgba(255, 99, 132, 0.6)",
-          "rgba(54, 162, 235, 0.6)",
-          "rgba(255, 206, 86, 0.6)",
-          "rgba(75, 192, 192, 0.6)",
-          "rgba(153, 102, 255, 0.6)",
-          "rgba(255, 159, 64, 0.6)",
-        ],
-        borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
-          "rgba(255, 159, 64, 1)",
-        ],
-        borderWidth: 1,
-      },
-    ],
-  };
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h2 className="text-2xl font-semibold mb-8 text-center">
-        Expense Tracker
-      </h2>
-      {loading ? (
-        <p className="text-center">Loading...</p>
-      ) : error ? (
-        <p className="text-center text-red-500">Error: {error}</p>
+    <div className="expense-chart">
+      <div className="period-selector">
+        <label htmlFor="period">Select Period:</label>
+        <select
+          id="period"
+          value={selectedOption}
+          onChange={(e) => setSelectedOption(e.target.value)}
+        >
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+          <option value="monthly">Monthly</option>
+          <option value="yearly">Yearly</option>
+        </select>
+      </div>
+      {error ? (
+        <div className="error-message">{error}</div>
       ) : (
-        <div>
-          <div className="mb-8">
-            <h3 className="text-lg font-semibold mb-4">Expense Analysis</h3>
-            <div className="rounded-md shadow-md p-4">
-              <Bar data={data} />
-            </div>
-          </div>
+        <div className="pie-chart-container">
+          <PieChart width={400} height={400}>
+            <Pie
+              data={expenses}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={150}
+              fill="#8884d8"
+              label
+            >
+              {expenses.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={COLORS[index % COLORS.length]}
+                />
+              ))}
+            </Pie>
+          </PieChart>
         </div>
       )}
     </div>

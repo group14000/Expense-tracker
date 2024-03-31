@@ -37,7 +37,6 @@ const Header = () => {
 const MenuLinks = () => (
   <div className="flex">
     <MenuLink to="#" icon={<FaChartBar />} text="Dashboard" />
-    <MenuLink to="/expense-chart" icon={<FaChartBar />} text="Charts" />
     <MenuLink to="/add-expense" icon={<FaPlus />} text="Add" />
     <MenuLink to="/expense-list" icon={<FaList />} text="Expense List" />
     <MenuLink to="#" icon={<FaUser />} text="User Profile" />
@@ -49,7 +48,6 @@ const MenuLinks = () => (
 const MenuLinksMobile = ({ toggleMenu }) => (
   <div className="flex flex-col">
     <MenuLink to="#" icon={<FaChartBar />} text="Dashboard" />
-    <MenuLink to="/expense-chart" icon={<FaChartBar />} text="Charts" />
     <MenuLink to="/add-expense" icon={<FaPlus />} text="Add" />
     <MenuLink to="/expense-list" icon={<FaList />} text="Expense List" />
     <MenuLink to="#" icon={<FaUser />} text="User Profile" />

@@ -10,7 +10,7 @@ const LazyExpenseTrackerForm = React.lazy(() =>
 const LazyExpenseTracker = React.lazy(() =>
   import("./expenses/ExpenseTracker")
 );
-const LazyExpenseChart = React.lazy(() => import("./charts/ExpenseChart"));
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -45,14 +45,6 @@ const App = () => {
           element={
             <Suspense fallback={<div>Loading...</div>}>
               <LazyExpenseTracker />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/expense-chart"
-          element={
-            <Suspense fallback={<div>Loading...</div>}>
-              <LazyExpenseChart />
             </Suspense>
           }
         />

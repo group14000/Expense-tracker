@@ -62,8 +62,8 @@ const ExpenseTracker = () => {
     e.preventDefault();
     try {
       await axios.put(`http://localhost:3000/expenses/${editId}`, editData);
-      setEditId(null); 
-      fetchExpenses(); 
+      setEditId(null);
+      fetchExpenses();
     } catch (error) {
       console.error(error);
       setError("Error updating expense");
