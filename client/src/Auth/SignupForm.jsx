@@ -28,6 +28,14 @@ const SignupForm = () => {
         formData
       );
       console.log(response.data); // Log the response from the backend
+      // Clear all input fields after successful submission
+      setFormData({
+        userid: "",
+        email: "",
+        name: "",
+        password: "",
+        confirmPassword: "",
+      });
     } catch (error) {
       console.error("Error submitting form:", error);
     }

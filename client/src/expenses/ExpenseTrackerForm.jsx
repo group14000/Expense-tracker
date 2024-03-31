@@ -35,6 +35,15 @@ const ExpenseTrackerForm = () => {
         expense
       );
       console.log(response.data);
+      // Clear all input fields after successful submission
+      setExpense({
+        date: new Date(),
+        category: "",
+        description: "",
+        amount: "",
+        currency: "",
+        paymentMethod: "",
+      });
     } catch (error) {
       console.error(error);
     }
