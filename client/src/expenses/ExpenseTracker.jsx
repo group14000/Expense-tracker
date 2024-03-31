@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom"; // Import Link from react-router-dom
+
 import {
   BarChart,
   Bar,
@@ -60,12 +62,20 @@ const ExpenseTracker = () => {
                   <div className="mb-2">Amount: {expense.amount}</div>
                   <div className="mb-2">Currency: {expense.currency}</div>
                   <div>Payment Method: {expense.paymentMethod}</div>
-                  <button
-                    onClick={() => deleteExpense(expense.id)}
-                    className="mt-2 bg-red-500 text-white px-4 py-1 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
-                  >
-                    Delete
-                  </button>
+                  <div className="flex mt-2">
+                    <Link
+                      to="/edit-expense"
+                      className="bg-blue-500 text-white px-4 py-1 rounded-md mr-2"
+                    >
+                      Edit
+                    </Link>
+                    <button
+                      onClick={() => deleteExpense(expense.id)}
+                      className="bg-red-500 text-white px-4 py-1 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </li>
               ))}
             </ul>
