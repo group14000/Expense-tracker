@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaChartBar, FaPlus, FaList, FaUser, FaFilePdf } from "react-icons/fa";
+import { FaChartBar, FaPlus, FaList, FaUser } from "react-icons/fa";
 import { IoReorderThreeOutline } from "react-icons/io5";
 
 const Header = () => {
@@ -40,7 +40,6 @@ const MenuLinks = () => (
     <MenuLink to="/add-expense" icon={<FaPlus />} text="Add" />
     <MenuLink to="/expense-list" icon={<FaList />} text="Expense List" />
     <MenuLink to="#" icon={<FaUser />} text="User Profile" />
-    <MenuLink to="#" icon={<FaFilePdf />} text="Download PDF" />
     <MenuLink to="/login" icon={<FaUser />} text="Register" />
   </div>
 );
@@ -51,7 +50,6 @@ const MenuLinksMobile = ({ toggleMenu }) => (
     <MenuLink to="/add-expense" icon={<FaPlus />} text="Add" />
     <MenuLink to="/expense-list" icon={<FaList />} text="Expense List" />
     <MenuLink to="#" icon={<FaUser />} text="User Profile" />
-    <MenuLink to="#" icon={<FaFilePdf />} text="Download PDF" />
     <MenuLink to="/login" icon={<FaUser />} text="Register" />
     <button onClick={toggleMenu} className="mt-auto px-4 py-2 text-white">
       Close
