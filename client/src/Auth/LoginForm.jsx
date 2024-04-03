@@ -24,7 +24,7 @@ const LoginForm = () => {
         loginData
       );
       console.log(response.data);
-      window.alert("Login successful!"); 
+      window.alert("Login successful!");
     } catch (error) {
       console.error("Error logging in:", error);
     }
